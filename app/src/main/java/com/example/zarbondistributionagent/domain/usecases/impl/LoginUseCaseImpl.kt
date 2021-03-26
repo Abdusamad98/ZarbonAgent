@@ -1,0 +1,26 @@
+package com.example.zarbondistributionagent.domain.usecases.impl
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
+import com.example.zarbondistributionagent.data.models.loginmodel.LoginData
+import com.example.zarbondistributionagent.data.models.loginmodel.LoginResponse
+import com.example.zarbondistributionagent.domain.repositories.repo.LoginRepository
+import com.example.zarbondistributionagent.domain.repositories.impl.LoginRepositoryImpl
+import com.example.zarbondistributionagent.domain.usecases.LoginUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+
+
+class LoginUseCaseImpl : LoginUseCase {
+    private val repository: LoginRepository = LoginRepositoryImpl()
+    override val errorLoginLiveData = MutableLiveData<String>()
+
+    override fun userLogin(loginData: LoginData): LiveData<LoginResponse> =
+        liveData(Dispatchers.IO) {
+            repository.userLogin(loginData).collect {
+                if (it.isSuccess) emit(it.getOrNull()!!)
+                else errorLoginLiveData.postValue("Error")
+            }
+        }
+
+}
