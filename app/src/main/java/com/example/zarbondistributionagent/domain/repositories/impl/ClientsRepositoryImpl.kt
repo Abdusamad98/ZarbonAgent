@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.flow
 
 class ClientsRepositoryImpl : ClientsRepository {
     private val api = ApiClient.retrofit.create(ClientsApiInterface::class.java)
-    override suspend fun getClients(filter:String): Flow<Result<List<ClientsData>?>> = flow {
+    override suspend fun getClients(): Flow<Result<ClientsData?>> = flow {
         try {
-            val response = api.getClientList("report/client-debt-list/${TokenSaver.getAgentId()}/",filter)
+            val response = api.getClientList("client/get-agent-clients/${TokenSaver.getAgentId()}/")
             if (response.code() == 200) {
                 emit(Result.success(response.body()))
                 log(response.body().toString(), "QQQ")

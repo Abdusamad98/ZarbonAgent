@@ -8,16 +8,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.zarbondistributionagent.R
 import com.example.zarbondistributionagent.data.models.productsmodel.ProductData
 import com.example.zarbondistributionagent.utils.spannableText
 import kotlinx.android.synthetic.main.item_products.view.*
+import kotlinx.android.synthetic.main.item_report_hisyory.view.*
 
 class ProductListAdapter : ListAdapter<ProductData, ProductListAdapter.ViewHolder>(DiffItem) {
 
     var query = ""
 
     private var clickListener : ((Int) -> Unit)? = null
+    private var clickAboutListener : ((Int) -> Unit)? = null
     object DiffItem : DiffUtil.ItemCallback<ProductData>() {
         override fun areItemsTheSame(oldItem: ProductData, newItem: ProductData): Boolean {
             return oldItem.id == newItem.id
@@ -29,7 +32,9 @@ class ProductListAdapter : ListAdapter<ProductData, ProductListAdapter.ViewHolde
                     oldItem.unit == newItem.unit&&
                     oldItem.quantity == newItem.quantity&&
                     oldItem.last_update == newItem.last_update&&
-                    oldItem.provider == newItem.provider
+                    oldItem.image == newItem.image&&
+                    oldItem.provider == newItem.provider&&
+                    oldItem.price == newItem.price
         }
 
     }
@@ -48,6 +53,9 @@ class ProductListAdapter : ListAdapter<ProductData, ProductListAdapter.ViewHolde
                 productSell.setOnClickListener {
                     clickListener?.invoke(getItem(adapterPosition).id)
                 }
+                productAbout.setOnClickListener {
+                    clickAboutListener?.invoke(getItem(adapterPosition).id)
+                }
             }
         }
 
@@ -60,6 +68,13 @@ class ProductListAdapter : ListAdapter<ProductData, ProductListAdapter.ViewHolde
 
                 productDate.text = d.last_update.substring(0,10)
                 productProvider.text = d.provider
+                productPrice.text = d.price.toString()
+
+                if (d.image != "") {
+                    Glide.with(product_image.context).load("https://zarbon.herokuapp.com"+ d.image)
+                        .placeholder(R.drawable.ic_baseline_image_not_supported_24)
+                        .into(product_image)
+                }
 
                 if (d.product_type.equals("limited")) {
                     productQuantity.text = d.quantity +" "+ d.unit
@@ -77,6 +92,10 @@ class ProductListAdapter : ListAdapter<ProductData, ProductListAdapter.ViewHolde
 
     fun clickedProduct(f : (Int )->Unit) {
         clickListener = f
+    }
+
+    fun clickedAboutProduct(f : (Int )->Unit) {
+        clickAboutListener = f
     }
 
 }

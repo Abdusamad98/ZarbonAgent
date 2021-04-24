@@ -2,10 +2,12 @@ package com.example.zarbondistributionagent.data.models.clientmodel.clientproduc
 
 data class ClientProducts(
     val created_date: String,
-    val deadline: Any,
+    val deadline: String="",
     val debt: String,
+    val discount: String,
     val id: Int,
-    val price: String,
+    val order_method: String,
+    val price: Price,
     val product: Product,
     val quantity: String,
     val status: String,

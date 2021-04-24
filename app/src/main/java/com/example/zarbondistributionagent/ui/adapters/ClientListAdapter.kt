@@ -7,25 +7,34 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.zarbondistributionagent.R
+import com.example.zarbondistributionagent.data.models.clientmodel.Client
 import com.example.zarbondistributionagent.utils.spannableText
 import kotlinx.android.synthetic.main.item_client.view.*
 
-class ClientListAdapter : ListAdapter<com.example.zarbondistributionagent.data.models.clientmodel.ClientsData, ClientListAdapter.ViewHolder>(DiffItem) {
+class ClientListAdapter : ListAdapter<Client, ClientListAdapter.ViewHolder>(DiffItem) {
 
     var query = ""
 
-    object DiffItem : DiffUtil.ItemCallback<com.example.zarbondistributionagent.data.models.clientmodel.ClientsData>() {
-        override fun areItemsTheSame(oldItem: com.example.zarbondistributionagent.data.models.clientmodel.ClientsData, newItem: com.example.zarbondistributionagent.data.models.clientmodel.ClientsData): Boolean {
-            return oldItem.client.id == newItem.client.id
+    object DiffItem :
+        DiffUtil.ItemCallback<com.example.zarbondistributionagent.data.models.clientmodel.Client>() {
+        override fun areItemsTheSame(
+            oldItem: com.example.zarbondistributionagent.data.models.clientmodel.Client,
+            newItem: com.example.zarbondistributionagent.data.models.clientmodel.Client
+        ): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: com.example.zarbondistributionagent.data.models.clientmodel.ClientsData, newItem: com.example.zarbondistributionagent.data.models.clientmodel.ClientsData): Boolean {
-            return oldItem.client.name == newItem.client.name &&
-                    oldItem.client.responsible_agent == newItem.client.responsible_agent &&
-                    oldItem.client.phone_number1 == newItem.client.phone_number1  &&
-                    oldItem.client.address == newItem.client.address &&
-                    oldItem.total_debt == newItem.total_debt
+        override fun areContentsTheSame(
+            oldItem: com.example.zarbondistributionagent.data.models.clientmodel.Client,
+            newItem: com.example.zarbondistributionagent.data.models.clientmodel.Client
+        ): Boolean {
+            return oldItem.name == newItem.name &&
+                    oldItem.responsible_agent == newItem.responsible_agent &&
+                    oldItem.phone_number1 == newItem.phone_number1 &&
+                    oldItem.debt == newItem.debt &&
+                    oldItem.image == newItem.image
         }
 
     }
@@ -45,18 +54,24 @@ class ClientListAdapter : ListAdapter<com.example.zarbondistributionagent.data.m
             }
         }
 
-        fun bind(d: com.example.zarbondistributionagent.data.models.clientmodel.ClientsData) {
+        fun bind(d: com.example.zarbondistributionagent.data.models.clientmodel.Client) {
 
             itemView.apply {
-                if (query != "") client_name.text = d.client.name spannableText query
-                else client_name.text = d.client.name
+                if (query != "") client_name.text = d.name spannableText query
+                else client_name.text = d.name
 
-                client_address.text = d.client.address
-                responsible_agent.text = d.client.responsible_agent
-                phone.text = d.client.phone_number1
-                debt.text = d.total_debt.toString()
+                if (d.image != "") {
+                    Glide.with(clientImage.context).load("https://zarbon.herokuapp.com" + d.image)
+                        .placeholder(R.drawable.ic_baseline_image_not_supported_24)
+                        .into(clientImage)
+                }
 
-                if (d.total_debt > 0) {
+
+                responsible_agent.text = d.responsible_agent
+                phone.text = d.phone_number1
+                debt.text = d.debt.toString()
+
+                if (d.debt > 0) {
                     debt.setTextColor(Color.RED)
                 } else debt.setTextColor(Color.GREEN)
 

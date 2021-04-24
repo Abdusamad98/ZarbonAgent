@@ -9,10 +9,6 @@
         android:icon="@drawable/ic_box"
         android:title="Mahsulotlar" />
 
-    <item
-        android:id="@+id/Discounts"
-        android:icon="@drawable/ic_price_tag"
-        android:title="Chegirma" />
 
 
     <item

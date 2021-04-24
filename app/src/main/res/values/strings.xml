@@ -20,7 +20,7 @@
     <string name="qarzi">Qarzi:</string>
     <string name="barcha_kilentlar">Barcha kilentlar</string>
     <string name="qarzdor_kilentlar">Qarzdor kilentlar</string>
-    <string name="qarzdor_bo_lmagan_kilentlar">Qarzdor bo\'lmagan kilentlar</string>
+    <string name="qarzdor_bo_lmagan_kilentlar">Ohirgi bir oydagi kilentlar</string>
     <string name="tasdiqlash">Tasdiqlash</string>
     <string name="ta_minotchi">Ta\'minotchi:</string>
     <string name="sotish">Sotish</string>
@@ -54,7 +54,7 @@
     <string name="chiqish">Chiqish</string>
     <string name="mahsulot_buyurtma_qilish_uchun_avval_mahsulotni_tanlang">Mahsulot buyurtma qilish uchun avval mahsulotni tanlang!</string>
     <string name="sotilayotgan_mahsulot_ma_lumotlari">SOTILAYOTGAN MAHSULOT MA\'LUMOTLARI!</string>
-    <string name="buyurtma_olish">Buyurtma olish</string>
+    <string name="buyurtma_olish">Sotish</string>
     <string name="mening_ma_lumotlarim">Mening ma\'lumotlarim</string>
     <string name="hisobot_berish">Hisobot berish</string>
     <string name="yuborish">Yuborish</string>

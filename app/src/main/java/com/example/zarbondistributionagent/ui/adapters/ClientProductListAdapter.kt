@@ -17,8 +17,8 @@ class ClientProductListAdapter : ListAdapter<ClientProducts, ClientProductListAd
 
     object DiffItem : DiffUtil.ItemCallback<ClientProducts>() {
         override fun areItemsTheSame(
-                oldItem: ClientProducts,
-                newItem: ClientProducts,
+            oldItem: ClientProducts,
+            newItem: ClientProducts,
         ): Boolean {
             return oldItem.id == newItem.id
         }
@@ -54,6 +54,8 @@ class ClientProductListAdapter : ListAdapter<ClientProducts, ClientProductListAd
         fun bind(d: ClientProducts) {
             itemView.apply {
                 soldItemNameClient.text = d.product.name
+                givenDiscount.text = d.discount + " %"
+                productDebt.text = d.debt
 
                 if (d.status.equals("ordered")) {
                     soldItemStatusClient.text = "Buyurtma qilindi"
@@ -63,7 +65,7 @@ class ClientProductListAdapter : ListAdapter<ClientProducts, ClientProductListAd
                     soldItemStatusClient.setTextColor(Color.GREEN)
                 }
                 soldItemQuantityClient.text = d.quantity + " " + d.product.unit
-                soldItemPriceClient.text = d.price
+                soldItemPriceClient.text = d.price.price
                 soldItemDateClient.text = d.created_date.substring(0, 10)
 
             }

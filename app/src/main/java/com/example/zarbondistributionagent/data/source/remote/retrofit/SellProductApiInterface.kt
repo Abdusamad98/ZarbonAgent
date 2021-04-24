@@ -9,10 +9,12 @@ interface SellProductApiInterface {
     @POST("order/sell-order-list/")
     suspend fun sellProduct(
         @Header("Accept") app_json: String,
-        @Field("price") price:String,
+        @Field("order_method") order_method:String,
         @Field("quantity") quantity:String,
         @Field("client") client:Int,
-        @Field("product") product:Int
+        @Field("product") product:Int,
+        @Field("discount") discount:Int,
+        @Field("price") price:Int,
     ) : Response<SellProductResponse>
 }
 

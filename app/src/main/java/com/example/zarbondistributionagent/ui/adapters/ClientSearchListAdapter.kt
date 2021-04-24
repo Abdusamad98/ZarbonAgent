@@ -7,26 +7,26 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zarbondistributionagent.R
+import com.example.zarbondistributionagent.data.models.clientmodel.Client
 import com.example.zarbondistributionagent.data.models.clientmodel.ClientsData
 import com.example.zarbondistributionagent.utils.spannableText
 import kotlinx.android.synthetic.main.item_search_client.view.*
 
 class ClientSearchListAdapter :
-    ListAdapter<ClientsData, ClientSearchListAdapter.ViewHolder>(DiffItem) {
+    ListAdapter<Client, ClientSearchListAdapter.ViewHolder>(DiffItem) {
 
     var query = ""
 
-    object DiffItem : DiffUtil.ItemCallback<ClientsData>() {
-        override fun areItemsTheSame(oldItem: ClientsData, newItem: ClientsData): Boolean {
-            return oldItem.client.id == newItem.client.id
+    object DiffItem : DiffUtil.ItemCallback<Client>() {
+        override fun areItemsTheSame(oldItem: Client, newItem: Client): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: ClientsData, newItem: ClientsData): Boolean {
-            return oldItem.client.name == newItem.client.name &&
-                    oldItem.client.responsible_agent == newItem.client.responsible_agent &&
-                    oldItem.client.phone_number1 == newItem.client.phone_number1 &&
-                    oldItem.client.address == newItem.client.address &&
-                    oldItem.total_debt == newItem.total_debt
+        override fun areContentsTheSame(oldItem: Client, newItem: Client): Boolean {
+            return oldItem.name == newItem.name &&
+                    oldItem.responsible_agent == newItem.responsible_agent &&
+                    oldItem.phone_number1 == newItem.phone_number1 &&
+                    oldItem.debt == newItem.debt
         }
 
     }
@@ -45,9 +45,9 @@ class ClientSearchListAdapter :
             view.apply {
                 clientSearchableName.setOnClickListener {
                     listenerClientData?.invoke(
-                        getItem(adapterPosition).client.id,
-                        getItem(adapterPosition).client.name,
-                        getItem(adapterPosition).total_debt
+                        getItem(adapterPosition).id,
+                        getItem(adapterPosition).name,
+                        getItem(adapterPosition).debt
                     )
                 }
             }
@@ -55,10 +55,10 @@ class ClientSearchListAdapter :
 //        if (query != "") productName.text = d.name spannableText query
 //        else productName.text = d.name
 
-        fun bind(d: ClientsData) {
+        fun bind(d: Client) {
             itemView.apply {
-                if (query != "") clientSearchableName.text = d.client.name spannableText query
-                else clientSearchableName.text = d.client.name
+                if (query != "") clientSearchableName.text = d.name spannableText query
+                else clientSearchableName.text = d.name
             }
         }
     }

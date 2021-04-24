@@ -42,14 +42,13 @@ class HomeFragment : Fragment(R.layout.main_nav) {
             when (it) {
                 0 -> bottomNavigationView.selectedItemId = R.id.clients
                 1 -> bottomNavigationView.selectedItemId = R.id.products
-                2 -> bottomNavigationView.selectedItemId = R.id.Discounts
-                3 -> bottomNavigationView.selectedItemId = R.id.market
+                2 -> bottomNavigationView.selectedItemId = R.id.market
                 else -> bottomNavigationView.selectedItemId = R.id.clients
             }
         }
 
         adapter.eventListener { id  ->
-            pager.currentItem = 3
+            pager.currentItem = 2
             adapter.marketPage.handlerEvent(id)
         }
 
@@ -59,8 +58,7 @@ class HomeFragment : Fragment(R.layout.main_nav) {
             when (it.itemId) {
                 R.id.clients -> viewModel.selectPagePosition(0)
                 R.id.products -> viewModel.selectPagePosition(1)
-                R.id.Discounts -> viewModel.selectPagePosition(2)
-                R.id.market -> viewModel.selectPagePosition(3)
+                R.id.market -> viewModel.selectPagePosition(2)
                 else -> viewModel.selectPagePosition(0)
             }
             return@setOnNavigationItemSelectedListener true

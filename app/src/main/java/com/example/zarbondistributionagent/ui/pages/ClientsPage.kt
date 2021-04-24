@@ -12,7 +12,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zarbondistributionagent.R
+import com.example.zarbondistributionagent.data.models.clientmodel.Client
 import com.example.zarbondistributionagent.data.models.clientmodel.ClientsData
+import com.example.zarbondistributionagent.data.models.productsmodel.ProductData
 import com.example.zarbondistributionagent.ui.adapters.ClientListAdapter
 import com.example.zarbondistributionagent.ui.dialogs.ClientsFilterDialog
 import com.example.zarbondistributionagent.ui.viewmodels.ClientPageViewModel
@@ -27,8 +29,8 @@ class ClientsPage : Fragment(R.layout.clients_fragment) {
     lateinit var clientAdapter: ClientListAdapter
     private val viewModel: ClientPageViewModel by viewModels()
     lateinit var recycler : RecyclerView
-    var chosenClientType = "all"
-    var clientsData: List<ClientsData> = ArrayList()
+    lateinit var dt :ClientsData
+     var clientsData:  List<Client> = ArrayList()
     private var querySt = ""
 
 
@@ -49,7 +51,7 @@ class ClientsPage : Fragment(R.layout.clients_fragment) {
         }
 
         refreshClients.setOnRefreshListener {
-            viewModel.getClients(chosenClientType)
+            viewModel.getClients()
             Handler().postDelayed(Runnable {
                 refreshClients.isRefreshing = false
             }, 1000)
@@ -62,7 +64,7 @@ class ClientsPage : Fragment(R.layout.clients_fragment) {
                     if (query != null) {
                         querySt = query.trim()
                         initRecycler(clientsData.filter {
-                            it.client.name.contains(
+                            it.name.contains(
                                 querySt,
                                 true
                             )
@@ -77,7 +79,7 @@ class ClientsPage : Fragment(R.layout.clients_fragment) {
                         if (newText != null) {
                             querySt = newText.trim()
                             initRecycler(clientsData.filter {
-                                it.client.name.contains(
+                                it.name.contains(
                                     querySt,
                                     true
                                 )
@@ -112,15 +114,15 @@ class ClientsPage : Fragment(R.layout.clients_fragment) {
     private val connectionErrorObserver = Observer<Unit> {
         requireActivity().showToast("Internet yuq!")
     }
-    private val successClientsObserver = Observer<List<ClientsData>> { list ->
-        clientsData = list
-        log("${clientsData.toString()}","CLIENT")
-        initRecycler(list)
+    private val successClientsObserver = Observer<ClientsData> { list ->
+        clientsData = list.clients
+        dt = list
+        initRecycler(list.clients)
     }
 
 
 
-    fun initRecycler(data: List<ClientsData>) {
+    fun initRecycler(data: List<Client>) {
         clientAdapter = ClientListAdapter()
         clientAdapter.submitList(data)
         clientAdapter.query = querySt
@@ -132,8 +134,11 @@ class ClientsPage : Fragment(R.layout.clients_fragment) {
         val dialog = ClientsFilterDialog(requireContext())
         dialog.show()
         dialog.setOnClientFilterChosen { filter ->
-            chosenClientType = filter
-            viewModel.getClients(filter)
+            if(filter =="all")
+           initRecycler(dt.clients)
+            else{
+                dt.last_month_clients
+            }
         }
     }
 

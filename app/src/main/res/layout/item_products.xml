@@ -16,6 +16,18 @@
         android:layout_margin="8dp"
         android:orientation="vertical">
 
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:padding="8dp"
+            android:id="@+id/product_image"
+            android:layout_height="220dp"/>
+
+
+
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,12 +40,39 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="40"
-                android:text="@string/mahsulot_nomi"
+                android:text="Nomi:"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/productName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="60"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            android:weightSum="100">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:text="Narxi:"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/productPrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="60"
@@ -169,11 +208,35 @@
             android:padding="4dp"
             android:weightSum="100">
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/productAbout"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:background="@drawable/frame"
+                android:layout_height="wrap_content"
+                android:layout_weight="40">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Batafsil"
+                    android:paddingTop="6dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="6dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_height="wrap_content"
+                    />
+
+
+            </LinearLayout>
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="60"
+                android:layout_weight="20"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 

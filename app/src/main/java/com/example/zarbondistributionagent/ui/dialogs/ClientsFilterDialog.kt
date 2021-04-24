@@ -16,14 +16,8 @@ class ClientsFilterDialog(context: Context) :
                 close()
             }
 
-            noDebtClients.setOnClickListener {
-                listener?.invoke("no_debt")
-                close()
-            }
-
-
-            debtClients.setOnClickListener {
-                listener?.invoke("debt")
+            lastMonth.setOnClickListener {
+                listener?.invoke("lastMonth")
                 close()
             }
 

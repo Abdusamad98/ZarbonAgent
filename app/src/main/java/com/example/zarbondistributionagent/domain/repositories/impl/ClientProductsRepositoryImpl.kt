@@ -12,7 +12,7 @@ class ClientProductsRepositoryImpl : ClientProductsRepository {
     override suspend fun getClientProducts(clientId: String): Flow<Result<List<ClientProducts>?>> = flow {
 
         try {
-            val response = api.getClientProducts("order/client-sell-order-list/${clientId}/")
+            val response = api. getClientProducts("order/client-sell-order-list/${clientId}/")
             if (response.code() == 200) {
                 emit(Result.success(response.body()))
             }

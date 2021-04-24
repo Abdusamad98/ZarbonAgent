@@ -15,18 +15,18 @@ class ClientPageViewModel:ViewModel() {
     val errorCategoriesLiveData : LiveData<Unit> = useCase.errorClientsLiveData
     val progressLiveData= MutableLiveData<Boolean>()
     val connectionErrorLiveData = MutableLiveData<Unit>()
-    val successLiveData = MediatorLiveData<List<ClientsData>>()
+    val successLiveData = MediatorLiveData<ClientsData>()
 
 
     init {
-       getClients("all")
+       getClients()
     }
 
 
-    fun getClients(filter:String) {
+    fun getClients() {
         if(isConnected()){
             progressLiveData.value = true
-            val liveData = useCase.getClients(filter)
+            val liveData = useCase.getClients()
             successLiveData.addSource(liveData) {
                 progressLiveData.value = false
                 successLiveData.value = it

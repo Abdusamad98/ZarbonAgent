@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zarbondistributionagent.R
+import com.example.zarbondistributionagent.data.models.clientmodel.Client
 import com.example.zarbondistributionagent.data.models.clientmodel.ClientsData
 import com.example.zarbondistributionagent.data.models.clientmodel.clientproducts.ClientProducts
 import com.example.zarbondistributionagent.ui.adapters.ClientProductListAdapter
@@ -21,7 +22,7 @@ class ClientProductsFragment : Fragment(R.layout.client_products_fragment) {
 
     var clientId = -1
     private val viewModel: ClientPageViewModel by viewModels()
-    var clientsData: List<ClientsData> = ArrayList()
+    var clientsData: List<Client> = ArrayList()
 
     private val productsAdapter by lazy { ClientProductListAdapter() }
     private val pageViewModel: ClientProductsViewModel by viewModels()
@@ -62,19 +63,19 @@ class ClientProductsFragment : Fragment(R.layout.client_products_fragment) {
     private val connectionErrorObserver = Observer<Unit> {
         requireActivity().showToast("Internet yuq!")
     }
-    private val successClientsObserver = Observer<List<ClientsData>> { list ->
-        clientsData = list
-        if (list.isNotEmpty()) {
-            clientId = list[0].client.id
-            clientNameTitle.text = list[0].client.name
-            if (list[0].total_debt == 0.0) clientDebtTitle.text = "0"
-            else clientDebtTitle.text = list[0].total_debt.toString()
+    private val successClientsObserver = Observer<ClientsData> { list ->
+        clientsData = list.clients
+        if (list.clients.isNotEmpty()) {
+            clientId = list.clients[0].id
+            clientNameTitle.text = list.clients[0].name
+            if (list.clients[0].debt == 0.0) clientDebtTitle.text = "0"
+            else clientDebtTitle.text = list.clients[0].debt.toString()
             pageViewModel.getClientProducts(clientId)
 
         }
     }
 
-    private fun clientChosenChooseDialog(data: List<ClientsData>) {
+    private fun clientChosenChooseDialog(data: List<Client>) {
         val dialog = ClientChooseDialog(requireContext(), data)
         dialog.show()
         dialog.setOnClientChosen { id, name, totalDebt ->

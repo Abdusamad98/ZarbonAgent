@@ -5,8 +5,12 @@ data class ProductData(
     val last_update: String,
     val name: String,
     val product_type: String,
+    val image: String = "",
     val provider: String,
     val quantity: String,
-    val unit: String
+    val unit: String,
+    val price : Int,
+    val price_id : Int,
+
 )
 

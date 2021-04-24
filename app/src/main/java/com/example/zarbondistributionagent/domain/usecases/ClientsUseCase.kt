@@ -5,5 +5,5 @@ import com.example.zarbondistributionagent.data.models.clientmodel.ClientsData
 
 interface ClientsUseCase {
     val errorClientsLiveData : LiveData<Unit>
-    fun getClients(filter:String) : LiveData<List<ClientsData>>
+    fun getClients() : LiveData<ClientsData>
 }

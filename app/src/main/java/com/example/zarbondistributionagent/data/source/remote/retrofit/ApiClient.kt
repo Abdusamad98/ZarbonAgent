@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
     val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("http://159.65.233.187:8000/api/")
+        .baseUrl("https://zarbon.herokuapp.com/api/")
         .client(getHttpClientImage())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .addConverterFactory(GsonConverterFactory.create())
@@ -35,7 +35,7 @@ fun OkHttpClient.Builder.addLogging(): OkHttpClient.Builder {
         }
     })
     logging.level = HttpLoggingInterceptor.Level.HEADERS
-    if (false) {
+    if (true) {
         addNetworkInterceptor(logging)
         addNetworkInterceptor(ChuckInterceptor(context))
     }

@@ -45,8 +45,9 @@
 
         <ImageView
             android:layout_width="100dp"
+            android:backgroundTint="@color/colorPrimary"
             android:layout_height="100dp"
-            android:background="@drawable/logo_enterance" />
+            android:background="@drawable/ic_baseline_home_24" />
 
 
     </androidx.cardview.widget.CardView>

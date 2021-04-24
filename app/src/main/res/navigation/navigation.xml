@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_mainFragment_to_clientProductsFragment"
             app:destination="@id/clientProductsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_aboutProductFragment"
+            app:destination="@id/aboutProductFragment" />
     </fragment>
 
     <fragment
@@ -112,5 +115,15 @@
         android:id="@+id/mapsFragment"
         android:name="com.example.zarbondistributionagent.ui.screens.map.MapsFragment"
         android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps2" />
+        tools:layout="@layout/fragment_maps" />
+    <fragment
+        tools:layout="@layout/fragment_about_product"
+        android:id="@+id/aboutProductFragment"
+        android:name="com.example.zarbondistributionagent.ui.screens.AboutProductFragment"
+        android:label="AboutProductFragment">
+    <argument
+        android:name="productId"
+        app:argType="integer"
+        android:defaultValue="0" />
+    </fragment>
 </navigation>

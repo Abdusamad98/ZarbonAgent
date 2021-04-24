@@ -6,13 +6,14 @@ import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zarbondistributionagent.R
+import com.example.zarbondistributionagent.data.models.clientmodel.Client
 import com.example.zarbondistributionagent.data.models.clientmodel.ClientsData
 import com.example.zarbondistributionagent.ui.adapters.ClientSearchListAdapter
 import kotlinx.android.synthetic.main.client_choose_dialog.view.*
 
 
 @Suppress("DEPRECATION")
-class ClientChooseDialog(context: Context, clients: List<ClientsData>) :
+class ClientChooseDialog(context: Context, clients: List<Client>) :
     BaseDialog(context, R.layout.client_choose_dialog) {
 
     private var querySt = ""
@@ -44,7 +45,7 @@ class ClientChooseDialog(context: Context, clients: List<ClientsData>) :
                     if (query != null) {
                         querySt = query.trim()
                         adapter.submitList(clients.filter {
-                            it.client.name.contains(
+                            it.name.contains(
                                 querySt,
                                 true
                             )
@@ -62,7 +63,7 @@ class ClientChooseDialog(context: Context, clients: List<ClientsData>) :
                         if (newText != null) {
                             querySt = newText.trim()
                             adapter.submitList(clients.filter {
-                                it.client.name.contains(
+                                it.name.contains(
                                     querySt,
                                     true
                                 )

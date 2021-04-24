@@ -12,8 +12,8 @@ class ClientsUseCaseImpl : ClientsUseCase {
     private val repository: ClientsRepository = ClientsRepositoryImpl()
     override val errorClientsLiveData = MutableLiveData<Unit>()
 
-    override fun getClients(filter: String): LiveData<List<ClientsData>> = liveData {
-        repository.getClients(filter).collect {
+    override fun getClients(): LiveData<ClientsData> = liveData {
+        repository.getClients().collect {
             if (it.isSuccess) {
                 emit(it.getOrNull()!!)
             } else {

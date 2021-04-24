@@ -53,8 +53,9 @@ class ReportHistoryAdapter :
             itemView.apply {
                 commentText.text = d.comment
                 reportDate.text = d.created_date.substring(0, 10) +" "+ d.created_date.substring(11, 16)
+
                 if (d.image != null) {
-                    Glide.with(reportImage.context).load("http://159.65.233.187:8000"+ d.image)
+                    Glide.with(reportImage.context).load("https://zarbon.herokuapp.com"+ d.image)
                         .placeholder(R.drawable.ic_baseline_image_not_supported_24)
                         .into(reportImage)
                 }

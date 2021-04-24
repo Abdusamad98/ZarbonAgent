@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-
         when(NavHostFragment.findNavController(host).currentDestination?.id) {
             R.id.mainFragment-> {
                 AlertDialog.Builder(this)

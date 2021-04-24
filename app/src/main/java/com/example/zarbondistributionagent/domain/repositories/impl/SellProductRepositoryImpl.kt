@@ -15,7 +15,7 @@ class SellProductRepositoryImpl : SellProductRepository {
     override suspend fun sellProduct(productData: SellProductData):
             Flow<Result<Pair<Int,SellProductResponse?>>> = flow {
         try {
-            val response = api.sellProduct("application/json",productData.price,productData.quantity,productData.client,productData.product)
+            val response = api.sellProduct("application/json","agent",productData.quantity,productData.client,productData.product,productData.discount,productData.price)
             if(response.code() == 201) {
                 emit(Result.success(Pair(201,response.body())))
             }

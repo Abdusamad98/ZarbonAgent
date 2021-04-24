@@ -7,4 +7,5 @@ data class SellProductResponse(
     val price: String,
     val product: Int,
     val quantity: String,
-    val status: String)
+    val status: String
+    )

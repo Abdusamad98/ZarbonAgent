@@ -9,6 +9,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zarbondistributionagent.R
@@ -16,12 +17,14 @@ import com.example.zarbondistributionagent.data.models.categorymodel.CategoryDat
 import com.example.zarbondistributionagent.data.models.productsmodel.ProductData
 import com.example.zarbondistributionagent.ui.adapters.ProductListAdapter
 import com.example.zarbondistributionagent.ui.dialogs.CategoryChooseDialog
+import com.example.zarbondistributionagent.ui.screens.HomeFragmentDirections
 import com.example.zarbondistributionagent.ui.viewmodels.ProductsPageViewModel
 import com.example.zarbondistributionagent.utils.showToast
 import kotlinx.android.synthetic.main.products_fragment.*
 
 @Suppress("DEPRECATION")
 class ProductsPage : Fragment(R.layout.products_fragment) {
+
     private val pageViewModel: ProductsPageViewModel by viewModels()
     lateinit var recycler: RecyclerView
     var chosenCategory = 0
@@ -58,6 +61,13 @@ class ProductsPage : Fragment(R.layout.products_fragment) {
         productsAdapter.clickedProduct { id ->
             eventListener?.invoke(id)
         }
+
+        productsAdapter.clickedAboutProduct { id ->
+            findNavController().navigate(
+                HomeFragmentDirections.actionMainFragmentToAboutProductFragment(id)
+            )
+        }
+
         val handler = Handler()
         searchProductView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -108,8 +118,8 @@ class ProductsPage : Fragment(R.layout.products_fragment) {
 
     private val successCategoriesObserver = Observer<List<CategoryData>> { category ->
         categories = category as ArrayList<CategoryData>
-        if(chosenCategory!=0) pageViewModel.getProducts(chosenCategory)
-        else{
+        if (chosenCategory != 0) pageViewModel.getProducts(chosenCategory)
+        else {
             pageViewModel.getProducts(categories[0].id)
             chosenCategory = categories[0].id
         }
@@ -121,7 +131,7 @@ class ProductsPage : Fragment(R.layout.products_fragment) {
     }
 
     fun categorySetUp() {
-          pageViewModel.progressCategoriesLiveData.observe(this, progressObserver)
+        pageViewModel.progressCategoriesLiveData.observe(this, progressObserver)
         pageViewModel.errorCategoriesLiveData.observe(this, errorCategoriesObserver)
         pageViewModel.connectionErrorCategoriesLiveData.observe(
             this,
